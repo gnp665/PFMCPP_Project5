@@ -45,9 +45,98 @@ If you need inspiration for what to write, take a look at previously approved st
  UDT 1:
  */
 
+#include <iostream> 
+
+struct Car
+{
+    int numWheels;
+    int gasTankSizeInGallons;    
+    float milesPerGallon;
+    float gasPercentFull;
+    bool isClean = false;
+
+    Car();
+
+    void checkTirePressure(int numWheels);
+    bool carHasBeenCleaned(bool isClean);
+    float getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull);
+};
+
+Car::Car() : numWheels(4), gasTankSizeInGallons (20)
+{
+    milesPerGallon = 23.4f;
+    gasPercentFull = 69.2f;
+}
+
+bool Car::carHasBeenCleaned(bool isClean)
+{
+    if(isClean)
+    {
+        std::cout << "The car is already clean!" << std::endl;
+        return false;
+    }
+
+    std::cout << "The car has been cleaned!" << std::endl;
+    return true;
+}
+
+void Car::checkTirePressure(int numWheels)
+{
+    for (int i = 1; i <= numWheels; ++i)
+        std::cout << "Tire number " << i << ": Pressure has been checked" << std::endl;
+}
+
+float Car::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull = 100.0f)
+{
+  return (gasTankSizeInGallons * milesPerGallon * gasPercentFull / 100);
+}
+
 /*
  UDT 2:
  */
+
+struct Studio
+{
+    int numMics;
+    int numClients;    
+    float hoursPerMix;
+    int mixesPerClient;
+    float rate = 30.0f;
+
+    Studio();
+
+    void micCheck(int numMics);
+    int totalNumberMixes(int numClients, int mixesPerClient);
+    auto getTotalInvoiced(int numClients, int mixesPerClient, float hoursPerMix, float rate);
+};
+
+Studio::Studio() : numMics(8), numClients (10)
+{
+    hoursPerMix = 4.5f;
+    mixesPerClient = 2;
+}
+
+void Studio::micCheck(int numMics)
+{
+    int i = 1;
+    while(i <= numMics)
+    {
+        std::cout << "Mic number " << i << ": Signal has been checked" << std::endl;
+        i++;
+    }
+}
+
+int Studio::totalNumberMixes(int numClients, int mixesPerClient)
+{
+  return (numClients * mixesPerClient);
+}
+
+auto Studio::getTotalInvoiced(int numClients, int mixesPerClient, float hoursPerMix, float rate)
+{
+  return (numClients * mixesPerClient * hoursPerMix * rate);
+}
+
+
 
 /*
  UDT 3:
@@ -72,8 +161,36 @@ If you need inspiration for what to write, take a look at previously approved st
  Wait for my code review.
  */
 
-#include <iostream>
+
 int main()
 {
+    Car myCar, myOtherCar;
+    Studio myStudio, myOtherStudio;
+
+    // Test Bench UDT 2 - Instance 1:
+    myStudio.micCheck(myStudio.numMics);
+    std::cout << "Total number of mixes is " << myStudio.totalNumberMixes(myStudio.numClients, myStudio.mixesPerClient) << std::endl;
+    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl;
+
+    // Test Bench UDT 2 - Instance 2:
+    myOtherStudio.micCheck(4);
+    std::cout << "Total number of mixes is " << myOtherStudio.totalNumberMixes(15, 1) << std::endl;
+    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl;
+    
+    #if 0
+    // Test Bench UDT 1 - Instance 1:
+    myCar.carHasBeenCleaned(myCar.isClean);
+    myCar.checkTirePressure(myCar.numWheels);   
+    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl;
+
+    // Test Bench UDT 1 - Instance 2:
+    myOtherCar.carHasBeenCleaned(true);
+    myOtherCar.checkTirePressure(myOtherCar.numWheels);
+    std::cout << "Total miles on full tank is " << myOtherCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
+    std::cout << "Total miles on current tank is " << myOtherCar.getMilesToEmpty(20, 20.0f, 50.0f) << " miles" << std::endl;
+    
+    #endif
+
     std::cout << "good to go!" << std::endl;
 }
