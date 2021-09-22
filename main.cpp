@@ -53,12 +53,30 @@ struct Car
     int gasTankSizeInGallons;    
     float milesPerGallon;
     float gasPercentFull;
-    bool isClean = false;
+    bool isClean = true;
+   
+    //Nested UDT 1:   
+    struct Engine
+    {
+        int numCylinders;
+        bool hasCoolant;    
+        bool hasNormalTemp;
+        bool oilPressureIsGood;
+        bool isStarted = true;
+
+        Engine();
+
+        bool engineHasBeenStarted(bool isStarted);
+        void checkCylinderPressure(int numCylinders);
+        bool isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood);
+    };
+
+    Engine carEngine;
 
     Car();
 
+    bool hasBeenCleaned(bool isClean);
     void checkTirePressure(int numWheels);
-    bool carHasBeenCleaned(bool isClean);
     float getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull);
 };
 
@@ -68,15 +86,21 @@ Car::Car() : numWheels(4), gasTankSizeInGallons (20)
     gasPercentFull = 69.2f;
 }
 
-bool Car::carHasBeenCleaned(bool isClean)
+Car::Engine::Engine() : numCylinders(6), hasCoolant (true)
+{
+    hasNormalTemp = true;
+    oilPressureIsGood = true;
+}
+
+bool Car::hasBeenCleaned(bool isClean)
 {
     if(isClean)
     {
-        std::cout << "The car is already clean!" << std::endl;
+        std::cout << "The car is already clean" << std::endl;
         return false;
     }
 
-    std::cout << "The car has been cleaned!" << std::endl;
+    std::cout << "The car was dirty and now has been cleaned" << std::endl;
     return true;
 }
 
@@ -84,6 +108,36 @@ void Car::checkTirePressure(int numWheels)
 {
     for (int i = 1; i <= numWheels; ++i)
         std::cout << "Tire number " << i << ": Pressure has been checked" << std::endl;
+}
+
+bool Car::Engine::engineHasBeenStarted(bool isStarted)
+{
+    if(isStarted)
+    {
+        std::cout << "The car is has been started" << std::endl;
+        return true;
+    }
+
+    std::cout << "The car has NOT been started" << std::endl;
+    return false;
+}
+
+void Car::Engine::checkCylinderPressure(int numCylinders)
+{
+    for (int i = 1; i <= numCylinders; ++i)
+        std::cout << "Cylinder number " << i << ": Pressure has been checked" << std::endl;
+}
+
+bool Car::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood)
+{
+    if(hasCoolant && hasNormalTemp && oilPressureIsGood)
+    {
+        std::cout << "The engine status is Good" << std::endl;
+        return true;
+    }
+
+    std::cout << "The engine status is BAD!" << std::endl;
+    return false;
 }
 
 float Car::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull = 100.0f)
@@ -137,10 +191,107 @@ auto Studio::getTotalInvoiced(int numClients, int mixesPerClient, float hoursPer
 }
 
 
-
 /*
  UDT 3:
  */
+
+ struct Plane
+{
+    int numWheels;
+    int gasTankSizeInGallons;    
+    float milesPerGallon;
+    float gasPercentFull;
+    bool isClean = true;
+   
+    //Nested UDT 1:   
+    struct Engine
+    {
+        int numCylinders;
+        bool hasCoolant;    
+        bool hasNormalTemp;
+        bool oilPressureIsGood;
+        bool isStarted = true;
+
+        Engine();
+
+        bool engineHasBeenStarted(bool isStarted);
+        void checkCylinderPressure(int numCylinders);
+        bool isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood);
+    };
+
+    Engine planeEngine;
+
+    Plane();
+
+    bool hasBeenCleaned(bool isClean);
+    void checkTirePressure(int numWheels);
+    float getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull);
+};
+
+Plane::Plane() : numWheels(3), gasTankSizeInGallons (500)
+{
+    milesPerGallon = 1.23f;
+    gasPercentFull = 58.7f;
+}
+
+Plane::Engine::Engine() : numCylinders(4), hasCoolant (true)
+{
+    hasNormalTemp = true;
+    oilPressureIsGood = true;
+}
+
+bool Plane::hasBeenCleaned(bool isClean)
+{
+    if(isClean)
+    {
+        std::cout << "The plane is already clean" << std::endl;
+        return false;
+    }
+
+    std::cout << "The plane was dirty and now has been cleaned" << std::endl;
+    return true;
+}
+
+void Plane::checkTirePressure(int numWheels)
+{
+    for (int i = 1; i <= numWheels; ++i)
+        std::cout << "Tire number " << i << ": Pressure has been checked" << std::endl;
+}
+
+bool Plane::Engine::engineHasBeenStarted(bool isStarted)
+{
+    if(isStarted)
+    {
+        std::cout << "The plane is has been started" << std::endl;
+        return true;
+    }
+
+    std::cout << "The plane has NOT been started" << std::endl;
+    return false;
+}
+
+void Plane::Engine::checkCylinderPressure(int numCylinders)
+{
+    for (int i = 1; i <= numCylinders; ++i)
+        std::cout << "Cylinder number " << i << ": Pressure has been checked" << std::endl;
+}
+
+bool Plane::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood)
+{
+    if(hasCoolant && hasNormalTemp && oilPressureIsGood)
+    {
+        std::cout << "The engine status is Good" << std::endl;
+        return true;
+    }
+
+    std::cout << "The engine status is BAD!" << std::endl;
+    return false;
+}
+
+float Plane::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull = 100.0f)
+{
+  return (gasTankSizeInGallons * milesPerGallon * gasPercentFull / 100);
+}
 
 /*
  new UDT 4:
@@ -166,31 +317,56 @@ int main()
 {
     Car myCar, myOtherCar;
     Studio myStudio, myOtherStudio;
+    Plane myPlane, myOtherPlane;
 
-    // Test Bench UDT 2 - Instance 1:
+    #if 1
+
+    std::cout << std::endl << "Test Bench UDT 1 - Instance 1:" << std::endl;
+    myCar.hasBeenCleaned(myCar.isClean);
+    myCar.checkTirePressure(myCar.numWheels); 
+    myCar.carEngine.engineHasBeenStarted(myCar.carEngine.isStarted);
+    myCar.carEngine.checkCylinderPressure(myCar.carEngine.numCylinders);
+    myCar.carEngine.isEngineStatusGood(myCar.carEngine.hasCoolant, myCar.carEngine.hasNormalTemp, myCar.carEngine.oilPressureIsGood);
+    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl << std::endl;
+
+    std::cout << std::endl << "Test Bench UDT 1 - Instance 2:" << std::endl;
+    myCar.hasBeenCleaned(false);
+    myCar.checkTirePressure(4); 
+    myCar.carEngine.engineHasBeenStarted(false);
+    myCar.carEngine.checkCylinderPressure(6);
+    myCar.carEngine.isEngineStatusGood(true, false, true);
+    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl;
+
+    std::cout << "Test Bench UDT 2 - Instance 1:" << std::endl;
     myStudio.micCheck(myStudio.numMics);
     std::cout << "Total number of mixes is " << myStudio.totalNumberMixes(myStudio.numClients, myStudio.mixesPerClient) << std::endl;
-    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl;
+    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl << std::endl;
 
-    // Test Bench UDT 2 - Instance 2:
+    std::cout << "Test Bench UDT 2 - Instance 2:" << std::endl;
     myOtherStudio.micCheck(4);
     std::cout << "Total number of mixes is " << myOtherStudio.totalNumberMixes(15, 1) << std::endl;
-    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl;
-    
-    #if 0
-    // Test Bench UDT 1 - Instance 1:
-    myCar.carHasBeenCleaned(myCar.isClean);
-    myCar.checkTirePressure(myCar.numWheels);   
-    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl;
+    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl;
 
-    // Test Bench UDT 1 - Instance 2:
-    myOtherCar.carHasBeenCleaned(true);
-    myOtherCar.checkTirePressure(myOtherCar.numWheels);
-    std::cout << "Total miles on full tank is " << myOtherCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
-    std::cout << "Total miles on current tank is " << myOtherCar.getMilesToEmpty(20, 20.0f, 50.0f) << " miles" << std::endl;
-    
+    std::cout << std::endl << "Test Bench UDT 3 - Instance 1:" << std::endl;
+    myPlane.hasBeenCleaned(myPlane.isClean);
+    myPlane.checkTirePressure(myPlane.numWheels); 
+    myPlane.planeEngine.engineHasBeenStarted(myPlane.planeEngine.isStarted);
+    myPlane.planeEngine.checkCylinderPressure(myPlane.planeEngine.numCylinders);
+    myPlane.planeEngine.isEngineStatusGood(myPlane.planeEngine.hasCoolant, myPlane.planeEngine.hasNormalTemp, myPlane.planeEngine.oilPressureIsGood);
+    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl << std::endl;
+
+    std::cout << std::endl << "Test Bench UDT 3 - Instance 2:" << std::endl;
+    myPlane.hasBeenCleaned(false);
+    myPlane.checkTirePressure(3); 
+    myPlane.planeEngine.engineHasBeenStarted(false);
+    myPlane.planeEngine.checkCylinderPressure(4);
+    myPlane.planeEngine.isEngineStatusGood(true, false, true);
+    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl;
+ 
     #endif
-
     std::cout << "good to go!" << std::endl;
 }
