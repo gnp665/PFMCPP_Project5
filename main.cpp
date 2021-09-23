@@ -82,7 +82,7 @@ struct Car
     float gasPercentFull;
     bool isClean = true;
    
-    //Nested UDT 1:   
+    //Nested UDT 1 of 2:   
     struct Engine
     {
         int numCylinders;
@@ -141,7 +141,7 @@ bool Car::Engine::engineHasBeenStarted(bool isStarted_)
 {
     if(isStarted_)
     {
-        std::cout << "The car is has been started" << std::endl;
+        std::cout << "The car has been started" << std::endl;
         return true;
     }
 
@@ -230,7 +230,7 @@ auto Studio::getTotalInvoiced(int numClients_, int mixesPerClient_, float hoursP
     float gasPercentFull;
     bool isClean = true;
    
-    //Nested UDT 1:   
+    //Nested UDT 2 of 2:   
     struct Engine
     {
         int numCylinders;
@@ -289,7 +289,7 @@ bool Plane::Engine::engineHasBeenStarted(bool isStarted_)
 {
     if(isStarted_)
     {
-        std::cout << "The plane is has been started" << std::endl;
+        std::cout << "The plane has been started" << std::endl;
         return true;
     }
 
@@ -347,7 +347,7 @@ Fleet::Fleet()
 Fleet::~Fleet()
 {
     std::cout << std::endl << "UDT 4 - Destructor for Fleet:" << std::endl;
-    std::cout << "Total miles on current tank level " << myRedCar.getMilesToEmpty(myRedCar.gasTankSizeInGallons, myRedCar.milesPerGallon, myRedCar.gasPercentFull) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level is " << myRedCar.getMilesToEmpty(myRedCar.gasTankSizeInGallons, myRedCar.milesPerGallon, myRedCar.gasPercentFull) << " miles" << std::endl;
     std::cout << "Total miles on current tank level " << myBluePlane.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl;
 }
 
@@ -429,7 +429,7 @@ int main()
     myCar.carEngine.checkCylinderPressure(myCar.carEngine.numCylinders);
     myCar.carEngine.isEngineStatusGood(myCar.carEngine.hasCoolant, myCar.carEngine.hasNormalTemp, myCar.carEngine.oilPressureIsGood);
     std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on current tank level is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl << std::endl;
 
     std::cout << std::endl << "Test Bench UDT 1 - Instance 2:" << std::endl;
     myCar.hasBeenCleaned(false);
@@ -438,7 +438,7 @@ int main()
     myCar.carEngine.checkCylinderPressure(6);
     myCar.carEngine.isEngineStatusGood(true, false, true);
     std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on current tank level is " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl;
 
    // Test two instances of UDT 2
     std::cout << "Test Bench UDT 2 - Instance 1:" << std::endl;
@@ -459,7 +459,7 @@ int main()
     myPlane.planeEngine.checkCylinderPressure(myPlane.planeEngine.numCylinders);
     myPlane.planeEngine.isEngineStatusGood(myPlane.planeEngine.hasCoolant, myPlane.planeEngine.hasNormalTemp, myPlane.planeEngine.oilPressureIsGood);
     std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on current tank level is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl << std::endl;
 
     std::cout << std::endl << "Test Bench UDT 3 - Instance 2:" << std::endl;
     myPlane.hasBeenCleaned(false);
@@ -468,7 +468,7 @@ int main()
     myPlane.planeEngine.checkCylinderPressure(4);
     myPlane.planeEngine.isEngineStatusGood(true, false, true);
     std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on current tank level is " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl;
 
     // Test two instances of UDT 4
     Fleet myFleet; 
