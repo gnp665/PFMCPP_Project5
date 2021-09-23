@@ -92,9 +92,9 @@ Car::Engine::Engine() : numCylinders(6), hasCoolant (true)
     oilPressureIsGood = true;
 }
 
-bool Car::hasBeenCleaned(bool isClean)
+bool Car::hasBeenCleaned(bool isClean_)
 {
-    if(isClean)
+    if(isClean_)
     {
         std::cout << "The car is already clean" << std::endl;
         return false;
@@ -104,15 +104,15 @@ bool Car::hasBeenCleaned(bool isClean)
     return true;
 }
 
-void Car::checkTirePressure(int numWheels)
+void Car::checkTirePressure(int numWheels_)
 {
-    for (int i = 1; i <= numWheels; ++i)
+    for (int i = 1; i <= numWheels_; ++i)
         std::cout << "Tire number " << i << ": Pressure has been checked" << std::endl;
 }
 
-bool Car::Engine::engineHasBeenStarted(bool isStarted)
+bool Car::Engine::engineHasBeenStarted(bool isStarted_)
 {
-    if(isStarted)
+    if(isStarted_)
     {
         std::cout << "The car is has been started" << std::endl;
         return true;
@@ -122,15 +122,15 @@ bool Car::Engine::engineHasBeenStarted(bool isStarted)
     return false;
 }
 
-void Car::Engine::checkCylinderPressure(int numCylinders)
+void Car::Engine::checkCylinderPressure(int numCylinders_)
 {
-    for (int i = 1; i <= numCylinders; ++i)
+    for (int i = 1; i <= numCylinders_; ++i)
         std::cout << "Cylinder number " << i << ": Pressure has been checked" << std::endl;
 }
 
-bool Car::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood)
+bool Car::Engine::isEngineStatusGood(bool hasCoolant_, bool hasNormalTemp_, bool oilPressureIsGood_)
 {
-    if(hasCoolant && hasNormalTemp && oilPressureIsGood)
+    if(hasCoolant_ && hasNormalTemp_ && oilPressureIsGood_)
     {
         std::cout << "The engine status is Good" << std::endl;
         return true;
@@ -140,9 +140,9 @@ bool Car::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool o
     return false;
 }
 
-float Car::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull = 100.0f)
+float Car::getMilesToEmpty(int gasTankSizeInGallons_, float milesPerGallon_, float gasPercentFull_ = 100.0f)
 {
-  return (gasTankSizeInGallons * milesPerGallon * gasPercentFull / 100);
+    return (gasTankSizeInGallons_ * milesPerGallon_ * gasPercentFull_ / 100);
 }
 
 /*
@@ -170,24 +170,24 @@ Studio::Studio() : numMics(8), numClients (10)
     mixesPerClient = 2;
 }
 
-void Studio::micCheck(int numMics)
+void Studio::micCheck(int numMics_)
 {
     int i = 1;
-    while(i <= numMics)
+    while(i <= numMics_)
     {
         std::cout << "Mic number " << i << ": Signal has been checked" << std::endl;
         i++;
     }
 }
 
-int Studio::totalNumberMixes(int numClients, int mixesPerClient)
+int Studio::totalNumberMixes(int numClients_, int mixesPerClient_)
 {
-  return (numClients * mixesPerClient);
+    return (numClients_ * mixesPerClient_);
 }
 
-auto Studio::getTotalInvoiced(int numClients, int mixesPerClient, float hoursPerMix, float rate)
+auto Studio::getTotalInvoiced(int numClients_, int mixesPerClient_, float hoursPerMix_, float rate_)
 {
-  return (numClients * mixesPerClient * hoursPerMix * rate);
+    return (numClients_ * mixesPerClient_ * hoursPerMix_ * rate_);
 }
 
 
@@ -240,9 +240,9 @@ Plane::Engine::Engine() : numCylinders(4), hasCoolant (true)
     oilPressureIsGood = true;
 }
 
-bool Plane::hasBeenCleaned(bool isClean)
+bool Plane::hasBeenCleaned(bool isClean_)
 {
-    if(isClean)
+    if(isClean_)
     {
         std::cout << "The plane is already clean" << std::endl;
         return false;
@@ -252,15 +252,15 @@ bool Plane::hasBeenCleaned(bool isClean)
     return true;
 }
 
-void Plane::checkTirePressure(int numWheels)
+void Plane::checkTirePressure(int numWheels_)
 {
-    for (int i = 1; i <= numWheels; ++i)
+    for (int i = 1; i <= numWheels_; ++i)
         std::cout << "Tire number " << i << ": Pressure has been checked" << std::endl;
 }
 
-bool Plane::Engine::engineHasBeenStarted(bool isStarted)
+bool Plane::Engine::engineHasBeenStarted(bool isStarted_)
 {
-    if(isStarted)
+    if(isStarted_)
     {
         std::cout << "The plane is has been started" << std::endl;
         return true;
@@ -270,15 +270,15 @@ bool Plane::Engine::engineHasBeenStarted(bool isStarted)
     return false;
 }
 
-void Plane::Engine::checkCylinderPressure(int numCylinders)
+void Plane::Engine::checkCylinderPressure(int numCylinders_)
 {
-    for (int i = 1; i <= numCylinders; ++i)
+    for (int i = 1; i <= numCylinders_; ++i)
         std::cout << "Cylinder number " << i << ": Pressure has been checked" << std::endl;
 }
 
-bool Plane::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool oilPressureIsGood)
+bool Plane::Engine::isEngineStatusGood(bool hasCoolant_, bool hasNormalTemp_, bool oilPressureIsGood_)
 {
-    if(hasCoolant && hasNormalTemp && oilPressureIsGood)
+    if(hasCoolant_ && hasNormalTemp_ && oilPressureIsGood_)
     {
         std::cout << "The engine status is Good" << std::endl;
         return true;
@@ -288,9 +288,9 @@ bool Plane::Engine::isEngineStatusGood(bool hasCoolant, bool hasNormalTemp, bool
     return false;
 }
 
-float Plane::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, float gasPercentFull = 100.0f)
+float Plane::getMilesToEmpty(int gasTankSizeInGallons_, float milesPerGallon_, float gasPercentFull_ = 100.0f)
 {
-  return (gasTankSizeInGallons * milesPerGallon * gasPercentFull / 100);
+    return (gasTankSizeInGallons_ * milesPerGallon_ * gasPercentFull_ / 100);
 }
 
 /*
@@ -304,6 +304,9 @@ struct Fleet
 
     Fleet();
     ~Fleet();
+
+    void checkOnCar();
+    void checkOnPlane(); 
 
 };
 
@@ -321,6 +324,17 @@ Fleet::~Fleet()
     std::cout << "Total miles on current tank level " << myBluePlane.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl;
 }
 
+void Fleet::checkOnCar() 
+{
+    myRedCar.checkTirePressure(myRedCar.numWheels);
+}
+
+void Fleet::checkOnPlane() 
+{
+    myBluePlane.checkTirePressure(myBluePlane.numWheels);
+}
+
+
 /*
  new UDT 5:
  */
@@ -332,6 +346,9 @@ struct MegaStudio
 
     MegaStudio();
     ~MegaStudio();
+
+    void checkOnRoomA();
+    void checkOnRoomB(); 
 
 };
 
@@ -349,6 +366,15 @@ MegaStudio::~MegaStudio()
     std::cout << "Total invoiced is " << roomB.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl;
 }
 
+void MegaStudio::checkOnRoomA() 
+{
+    roomA.micCheck(roomA.numMics);
+}
+
+void MegaStudio::checkOnRoomB() 
+{
+    roomB.micCheck(roomB.numMics);
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -420,9 +446,21 @@ int main()
     // Test two instances of UDT 4
     Fleet myFleet; 
     Fleet myOtherFleet;
+    std::cout << std::endl << "Test Bench UDT 4 - Instance 1:" << std::endl;
+    myFleet.checkOnCar();
+    myFleet.checkOnPlane();
+    std::cout << std::endl << "Test Bench UDT 4 - Instance 2:" << std::endl;
+    myOtherFleet.checkOnCar();
+    myOtherFleet.checkOnPlane();
 
     // Test two instances of UDT 5
     MegaStudio myMegaStudio; 
     MegaStudio myOtherMegaStudio;
- 
+    std::cout << std::endl << "Test Bench UDT 5 - Instance 1:" << std::endl;
+    myMegaStudio.checkOnRoomA();
+    myMegaStudio.checkOnRoomB();
+    std::cout << std::endl << "Test Bench UDT 5 - Instance 2:" << std::endl;
+    myOtherMegaStudio.checkOnRoomA();
+    myOtherMegaStudio.checkOnRoomB();
+
 }
