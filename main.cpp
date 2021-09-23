@@ -297,9 +297,58 @@ float Plane::getMilesToEmpty(int gasTankSizeInGallons, float milesPerGallon, flo
  new UDT 4:
  */
 
+struct Fleet
+{
+    Car myRedCar;
+    Plane myBluePlane;
+
+    Fleet();
+    ~Fleet();
+
+};
+
+Fleet::Fleet()
+{
+    std::cout << std::endl << "UDT 4 - Constructor for Fleet:" << std::endl;
+    myRedCar.checkTirePressure(myRedCar.numWheels);
+    myBluePlane.planeEngine.checkCylinderPressure(myBluePlane.planeEngine.numCylinders);
+}
+
+Fleet::~Fleet()
+{
+    std::cout << std::endl << "UDT 4 - Destructor for Fleet:" << std::endl;
+    std::cout << "Total miles on current tank level " << myRedCar.getMilesToEmpty(myRedCar.gasTankSizeInGallons, myRedCar.milesPerGallon, myRedCar.gasPercentFull) << " miles" << std::endl;
+    std::cout << "Total miles on current tank level " << myBluePlane.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl;
+}
+
 /*
  new UDT 5:
  */
+
+struct MegaStudio
+{
+    Studio roomA;
+    Studio roomB;
+
+    MegaStudio();
+    ~MegaStudio();
+
+};
+
+MegaStudio::MegaStudio()
+{
+    std::cout << std::endl << "UDT 5 - Constructor for MegaStudio:" << std::endl;
+    roomA.micCheck(roomA.numMics);
+    roomB.micCheck(4);
+}
+
+MegaStudio::~MegaStudio()
+{
+    std::cout << std::endl << "UDT 5 - Destructor for MegaStudio:" << std::endl;
+    std::cout << "Total invoiced is " << roomA.getTotalInvoiced(roomA.numClients, roomA.mixesPerClient, roomA.hoursPerMix, roomA.rate) << " dollars" << std::endl;
+    std::cout << "Total invoiced is " << roomB.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl;
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -319,8 +368,7 @@ int main()
     Studio myStudio, myOtherStudio;
     Plane myPlane, myOtherPlane;
 
-    #if 1
-
+    // Test two instances of UDT 1
     std::cout << std::endl << "Test Bench UDT 1 - Instance 1:" << std::endl;
     myCar.hasBeenCleaned(myCar.isClean);
     myCar.checkTirePressure(myCar.numWheels); 
@@ -339,6 +387,7 @@ int main()
     std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
     std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl;
 
+   // Test two instances of UDT 2
     std::cout << "Test Bench UDT 2 - Instance 1:" << std::endl;
     myStudio.micCheck(myStudio.numMics);
     std::cout << "Total number of mixes is " << myStudio.totalNumberMixes(myStudio.numClients, myStudio.mixesPerClient) << std::endl;
@@ -349,6 +398,7 @@ int main()
     std::cout << "Total number of mixes is " << myOtherStudio.totalNumberMixes(15, 1) << std::endl;
     std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl;
 
+   // Test two instances of UDT 3
     std::cout << std::endl << "Test Bench UDT 3 - Instance 1:" << std::endl;
     myPlane.hasBeenCleaned(myPlane.isClean);
     myPlane.checkTirePressure(myPlane.numWheels); 
@@ -366,7 +416,13 @@ int main()
     myPlane.planeEngine.isEngineStatusGood(true, false, true);
     std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl;
     std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl;
+
+    // Test two instances of UDT 4
+    Fleet myFleet; 
+    Fleet myOtherFleet;
+
+    // Test two instances of UDT 5
+    MegaStudio myMegaStudio; 
+    MegaStudio myOtherMegaStudio;
  
-    #endif
-    std::cout << "good to go!" << std::endl;
 }
