@@ -154,7 +154,7 @@ struct Car
 
     void carMemberFunc7() 
     { 
-        std::cout << "Total miles on current tank is " << this->getMilesToEmpty(this->gasTankSizeInGallons, this->milesPerGallon, this->gasPercentFull) << " miles" << std::endl;  
+        std::cout << "Total miles on current tank level is " << this->getMilesToEmpty(this->gasTankSizeInGallons, this->milesPerGallon, this->gasPercentFull) << " miles" << std::endl;  
     }  
 
 };
