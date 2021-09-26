@@ -428,8 +428,8 @@ int main()
     myCar.carEngine.engineHasBeenStarted(myCar.carEngine.isStarted);
     myCar.carEngine.checkCylinderPressure(myCar.carEngine.numCylinders);
     myCar.carEngine.isEngineStatusGood(myCar.carEngine.hasCoolant, myCar.carEngine.hasNormalTemp, myCar.carEngine.oilPressureIsGood);
-    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl; FIXME: write a member function that plrints the same thing out
+    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
     std::cout << std::endl << "Test Bench UDT 1 - Instance 2:" << std::endl;
     myCar.hasBeenCleaned(false);
@@ -437,19 +437,19 @@ int main()
     myCar.carEngine.engineHasBeenStarted(false);
     myCar.carEngine.checkCylinderPressure(6);
     myCar.carEngine.isEngineStatusGood(true, false, true);
-    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl; FIXME: write a member function that plrints the same thing out
+    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
    // Test two instances of UDT 2
     std::cout << "Test Bench UDT 2 - Instance 1:" << std::endl;
     myStudio.micCheck(myStudio.numMics);
     std::cout << "Total number of mixes is " << myStudio.totalNumberMixes(myStudio.numClients, myStudio.mixesPerClient) << std::endl;
-    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl << std::endl;
+    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
     std::cout << "Test Bench UDT 2 - Instance 2:" << std::endl;
     myOtherStudio.micCheck(4);
-    std::cout << "Total number of mixes is " << myOtherStudio.totalNumberMixes(15, 1) << std::endl;
-    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl;
+    std::cout << "Total number of mixes is " << myOtherStudio.totalNumberMixes(15, 1) << std::endl; FIXME: write a member function that plrints the same thing out
+    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
    // Test two instances of UDT 3
     std::cout << std::endl << "Test Bench UDT 3 - Instance 1:" << std::endl;
@@ -458,8 +458,8 @@ int main()
     myPlane.planeEngine.engineHasBeenStarted(myPlane.planeEngine.isStarted);
     myPlane.planeEngine.checkCylinderPressure(myPlane.planeEngine.numCylinders);
     myPlane.planeEngine.isEngineStatusGood(myPlane.planeEngine.hasCoolant, myPlane.planeEngine.hasNormalTemp, myPlane.planeEngine.oilPressureIsGood);
-    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon) << " miles" << std::endl; FIXME: write a member function that plrints the same thing out
+    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
     std::cout << std::endl << "Test Bench UDT 3 - Instance 2:" << std::endl;
     myPlane.hasBeenCleaned(false);
@@ -467,8 +467,8 @@ int main()
     myPlane.planeEngine.engineHasBeenStarted(false);
     myPlane.planeEngine.checkCylinderPressure(4);
     myPlane.planeEngine.isEngineStatusGood(true, false, true);
-    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl;
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl;
+    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl; FIXME: write a member function that plrints the same thing out
+    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl << std::endl; FIXME: write a member function that plrints the same thing out
 
     // Test two instances of UDT 4
     Fleet myFleet; 
