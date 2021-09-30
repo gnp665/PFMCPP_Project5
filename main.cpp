@@ -58,6 +58,7 @@ You don't have to do this, you can keep your current object name and just change
  */
 
 #include <iostream> 
+#include "LeakedObjectDetector.h"
 
 struct Car
 {
@@ -110,6 +111,8 @@ struct Car
     { 
         std::cout << "Total miles on current tank level is " << this->getMilesToEmpty(this->gasTankSizeInGallons = 20, this->milesPerGallon = 20.0f, this->gasPercentFull = 20.0f) << " miles" << std::endl;  
     } 
+
+    JUCE_LEAK_DETECTOR(Car)
 };
 
 Car::Car() : numWheels(4), gasTankSizeInGallons (20)
@@ -177,6 +180,18 @@ float Car::getMilesToEmpty(int gasTankSizeInGallons_, float milesPerGallon_, flo
     return (gasTankSizeInGallons_ * milesPerGallon_ * gasPercentFull_ / 100);
 }
 
+struct CarWrapper
+{
+    CarWrapper( Car* ptr ) : pointerToCar( ptr ) { }
+    ~CarWrapper()
+    {
+        delete pointerToCar;
+    }
+
+    Car* pointerToCar = nullptr;
+};
+
+
 /*
  UDT 2:
  */
@@ -214,6 +229,8 @@ struct Studio
     {  
         std::cout << "Total invoiced is " << this->getTotalInvoiced(this->numClients = 15, this->mixesPerClient = 1, this->hoursPerMix = 8.0f, this->rate = 20.0f) << " dollars" << std::endl;
     }  
+
+    JUCE_LEAK_DETECTOR(Studio)
 };
 
 Studio::Studio() : numMics(8), numClients (10)
@@ -241,6 +258,17 @@ float Studio::getTotalInvoiced(int numClients_, int mixesPerClient_, float hours
 {
     return (numClients_ * mixesPerClient_ * hoursPerMix_ * rate_);
 }
+
+struct StudioWrapper
+{
+    StudioWrapper( Studio* ptr ) : pointerToStudio( ptr ) { }
+    ~StudioWrapper()
+    {
+        delete pointerToStudio;
+    }
+
+    Studio* pointerToStudio = nullptr;
+};
 
 
 /*
@@ -298,6 +326,8 @@ float Studio::getTotalInvoiced(int numClients_, int mixesPerClient_, float hours
     { 
         std::cout << "Total miles on current tank level is " << this->getMilesToEmpty(this->gasTankSizeInGallons = 500, this->milesPerGallon = 1.42f, this->gasPercentFull = 51.50f) << " miles" << std::endl;  
     } 
+
+    JUCE_LEAK_DETECTOR(Plane)
 };
 
 Plane::Plane() : numWheels(3), gasTankSizeInGallons (500)
@@ -365,6 +395,18 @@ float Plane::getMilesToEmpty(int gasTankSizeInGallons_, float milesPerGallon_, f
     return (gasTankSizeInGallons_ * milesPerGallon_ * gasPercentFull_ / 100);
 }
 
+struct PlaneWrapper
+{
+    PlaneWrapper( Plane* ptr ) : pointerToPlane( ptr ) { }
+    ~PlaneWrapper()
+    {
+        delete pointerToPlane;
+    }
+
+    Plane* pointerToPlane = nullptr;
+};
+
+
 /*
  new UDT 4:
  */
@@ -379,6 +421,8 @@ struct Fleet
 
     void checkOnCar();
     void checkOnPlane(); 
+
+    JUCE_LEAK_DETECTOR(Fleet)
 };
 
 Fleet::Fleet()
@@ -405,6 +449,17 @@ void Fleet::checkOnPlane()
     myBluePlane.checkTirePressure(myBluePlane.numWheels);
 }
 
+struct FleetWrapper
+{
+    FleetWrapper( Fleet* ptr ) : pointerToFleet( ptr ) { }
+    ~FleetWrapper()
+    {
+        delete pointerToFleet;
+    }
+
+    Fleet* pointerToFleet = nullptr;
+};
+
 /*
  new UDT 5:
  */
@@ -419,6 +474,8 @@ struct MegaStudio
 
     void checkOnRoomA();
     void checkOnRoomB(); 
+
+    JUCE_LEAK_DETECTOR(MegaStudio)
 };
 
 MegaStudio::MegaStudio()
@@ -445,6 +502,18 @@ void MegaStudio::checkOnRoomB()
     roomB.checkEachMic(roomB.numMics);
 }
 
+struct MegaStudioWrapper
+{
+    MegaStudioWrapper( MegaStudio* ptr ) : pointerToMegaStudio( ptr ) { }
+    ~MegaStudioWrapper()
+    {
+        delete pointerToMegaStudio;
+    }
+
+    MegaStudio* pointerToMegaStudio = nullptr;
+};
+
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
@@ -459,99 +528,105 @@ void MegaStudio::checkOnRoomB()
 
 int main()
 {
-    Car myCar, myOtherCar;
-    Studio myStudio, myOtherStudio;
-    Plane myPlane, myOtherPlane;
+    CarWrapper myCar( new Car() );
+    CarWrapper myOtherCar( new Car() );
+
+    StudioWrapper myStudio( new Studio() );
+    StudioWrapper myOtherStudio( new Studio() );
+
+    PlaneWrapper myPlane( new Plane() );
+    PlaneWrapper myOtherPlane( new Plane() );
 
     // Test two instances of UDT 1
     std::cout << std::endl << "Test Bench UDT 1 - Instance 1:" << std::endl;
-    myCar.hasBeenCleaned(myCar.isClean);
-    myCar.checkTirePressure(myCar.numWheels); 
-    myCar.carEngine.hasEngineBeenStarted(myCar.carEngine.isStarted);
-    myCar.carEngine.checkCylinderPressure(myCar.carEngine.numCylinders);
-    myCar.carEngine.isEngineStatusGood(myCar.carEngine.hasCoolant, myCar.carEngine.hasNormalTemp, myCar.carEngine.oilPressureIsGood);
+    myCar.pointerToCar->hasBeenCleaned( myCar.pointerToCar->isClean );
+    myCar.pointerToCar->checkTirePressure( myCar.pointerToCar->numWheels ); 
+    myCar.pointerToCar->carEngine.hasEngineBeenStarted( myCar.pointerToCar->carEngine.isStarted );
+    myCar.pointerToCar->carEngine.checkCylinderPressure( myCar.pointerToCar->carEngine.numCylinders );
+    myCar.pointerToCar->carEngine.isEngineStatusGood( myCar.pointerToCar->carEngine.hasCoolant, myCar.pointerToCar->carEngine.hasNormalTemp, myCar.pointerToCar->carEngine.oilPressureIsGood );
 
-    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon) << " miles" << std::endl; 
-    myCar.printInitialFullTankMiles(); // member function output of above 
+    std::cout << "Total miles on full tank is " << myCar.pointerToCar->getMilesToEmpty( myCar.pointerToCar->gasTankSizeInGallons, myCar.pointerToCar->milesPerGallon ) << " miles" << std::endl; 
+    myCar.pointerToCar->printInitialFullTankMiles(); // member function output of above 
 
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(myCar.gasTankSizeInGallons, myCar.milesPerGallon, myCar.gasPercentFull) << " miles" << std::endl; 
-    myCar.printInitialCurrentTankMiles(); // member function output of above 
+    std::cout << "Total miles on current tank level " << myCar.pointerToCar->getMilesToEmpty( myCar.pointerToCar->gasTankSizeInGallons, myCar.pointerToCar->milesPerGallon, myCar.pointerToCar->gasPercentFull ) << " miles" << std::endl; 
+    myCar.pointerToCar->printInitialCurrentTankMiles(); // member function output of above 
 
     std::cout << std::endl << "Test Bench UDT 1 - Instance 2:" << std::endl;
-    myCar.hasBeenCleaned(false);
-    myCar.checkTirePressure(4); 
-    myCar.carEngine.hasEngineBeenStarted(false);
-    myCar.carEngine.checkCylinderPressure(6);
-    myCar.carEngine.isEngineStatusGood(true, false, true);
+    myCar.pointerToCar->hasBeenCleaned( false );
+    myCar.pointerToCar->checkTirePressure( 4 ); 
+    myCar.pointerToCar->carEngine.hasEngineBeenStarted( false );
+    myCar.pointerToCar->carEngine.checkCylinderPressure( 6 );
+    myCar.pointerToCar->carEngine.isEngineStatusGood( true, false, true );
 
-    std::cout << "Total miles on full tank is " << myCar.getMilesToEmpty(20, 20.0f) << " miles" << std::endl; 
-    myCar.printFullTankMiles(); // member function output of above 
+    std::cout << "Total miles on full tank is " << myCar.pointerToCar->getMilesToEmpty(20, 20.0f) << " miles" << std::endl; 
+    myCar.pointerToCar->printFullTankMiles(); // member function output of above 
 
-    std::cout << "Total miles on current tank level " << myCar.getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl;
-    myCar.printCurrentTankMiles(); // member function output of above 
+    std::cout << "Total miles on current tank level " << myCar.pointerToCar->getMilesToEmpty(20, 20.0f, 20.0f) << " miles" << std::endl;
+    myCar.pointerToCar->printCurrentTankMiles(); // member function output of above 
 
    // Test two instances of UDT 2
     std::cout << std::endl << "Test Bench UDT 2 - Instance 1:" << std::endl;
-    myStudio.checkEachMic(myStudio.numMics);
+    myStudio.pointerToStudio->checkEachMic( myStudio.pointerToStudio->numMics) ;
 
-    std::cout << "Total number of mixes is " << myStudio.getTotalNumberOfMixes(myStudio.numClients, myStudio.mixesPerClient) << std::endl;
-    myStudio.printInitialNumberOfMixes(); // member function output of above 
+    std::cout << "Total number of mixes is " << myStudio.pointerToStudio->getTotalNumberOfMixes( myStudio.pointerToStudio->numClients, myStudio.pointerToStudio->mixesPerClient ) << std::endl;
+    myStudio.pointerToStudio->printInitialNumberOfMixes(); // member function output of above 
     
-    std::cout << "Total invoiced is " << myStudio.getTotalInvoiced(myStudio.numClients, myStudio.mixesPerClient, myStudio.hoursPerMix, myStudio.rate) << " dollars" << std::endl; 
-    myStudio.printInitialTotalInvoiced(); // member function output of above 
+    std::cout << "Total invoiced is " << myStudio.pointerToStudio->getTotalInvoiced( myStudio.pointerToStudio->numClients, myStudio.pointerToStudio->mixesPerClient, myStudio.pointerToStudio->hoursPerMix, myStudio.pointerToStudio->rate ) << " dollars" << std::endl; 
+    myStudio.pointerToStudio->printInitialTotalInvoiced(); // member function output of above 
     
     std::cout << std::endl << "Test Bench UDT 2 - Instance 2:" << std::endl;
-    myOtherStudio.checkEachMic(4);
-    std::cout << "Total number of mixes is " << myOtherStudio.getTotalNumberOfMixes(15, 1) << std::endl; 
-    myOtherStudio.printNumberOfMixes(); // member function output of above 
+    myOtherStudio.pointerToStudio->checkEachMic( 4 );
+    std::cout << "Total number of mixes is " << myOtherStudio.pointerToStudio->getTotalNumberOfMixes( 15, 1 ) << std::endl; 
+    myOtherStudio.pointerToStudio->printNumberOfMixes(); // member function output of above 
     
-    std::cout << "Total invoiced is " << myOtherStudio.getTotalInvoiced(15, 1, 8, 20) << " dollars" << std::endl; 
-    myOtherStudio.printTotalInvoiced(); // member function output of above 
+    std::cout << "Total invoiced is " << myOtherStudio.pointerToStudio->getTotalInvoiced( 15, 1, 8, 20 ) << " dollars" << std::endl; 
+    myOtherStudio.pointerToStudio->printTotalInvoiced(); // member function output of above 
     
    // Test two instances of UDT 3
     std::cout << std::endl << "Test Bench UDT 3 - Instance 1:" << std::endl;
-    myPlane.hasBeenCleaned(myPlane.isClean);
-    myPlane.checkTirePressure(myPlane.numWheels); 
-    myPlane.planeEngine.hasEngineBeenStarted(myPlane.planeEngine.isStarted);
-    myPlane.planeEngine.checkCylinderPressure(myPlane.planeEngine.numCylinders);
-    myPlane.planeEngine.isEngineStatusGood(myPlane.planeEngine.hasCoolant, myPlane.planeEngine.hasNormalTemp, myPlane.planeEngine.oilPressureIsGood);
+    myPlane.pointerToPlane->hasBeenCleaned( myPlane.pointerToPlane->isClean );
+    myPlane.pointerToPlane->checkTirePressure(myPlane.pointerToPlane->numWheels); 
+    myPlane.pointerToPlane->planeEngine.hasEngineBeenStarted( myPlane.pointerToPlane->planeEngine.isStarted );
+    myPlane.pointerToPlane->planeEngine.checkCylinderPressure( myPlane.pointerToPlane->planeEngine.numCylinders );
+    myPlane.pointerToPlane->planeEngine.isEngineStatusGood( myPlane.pointerToPlane->planeEngine.hasCoolant, myPlane.pointerToPlane->planeEngine.hasNormalTemp, myPlane.pointerToPlane->planeEngine.oilPressureIsGood );
 
-    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon) << " miles" << std::endl; 
-    myPlane.printInitialFullTankMiles(); // member function output of above 
+    std::cout << "Total miles on full tank is " << myPlane.pointerToPlane->getMilesToEmpty( myPlane.pointerToPlane->gasTankSizeInGallons, myPlane.pointerToPlane->milesPerGallon ) << " miles" << std::endl; 
+    myPlane.pointerToPlane->printInitialFullTankMiles(); // member function output of above 
 
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(myPlane.gasTankSizeInGallons, myPlane.milesPerGallon, myPlane.gasPercentFull) << " miles" << std::endl; 
-    myPlane.printInitialCurrentTankMiles(); // member function output of above 
+    std::cout << "Total miles on current tank level " << myPlane.pointerToPlane->getMilesToEmpty( myPlane.pointerToPlane->gasTankSizeInGallons, myPlane.pointerToPlane->milesPerGallon, myPlane.pointerToPlane->gasPercentFull ) << " miles" << std::endl; 
+    myPlane.pointerToPlane->printInitialCurrentTankMiles(); // member function output of above 
 
     std::cout << std::endl << "Test Bench UDT 3 - Instance 2:" << std::endl;
-    myPlane.hasBeenCleaned(false);
-    myPlane.checkTirePressure(3); 
-    myPlane.planeEngine.hasEngineBeenStarted(false);
-    myPlane.planeEngine.checkCylinderPressure(4);
-    myPlane.planeEngine.isEngineStatusGood(true, false, true);
+    myPlane.pointerToPlane->hasBeenCleaned( false );
+    myPlane.pointerToPlane->checkTirePressure( 3 ); 
+    myPlane.pointerToPlane->planeEngine.hasEngineBeenStarted( false );
+    myPlane.pointerToPlane->planeEngine.checkCylinderPressure( 4 );
+    myPlane.pointerToPlane->planeEngine.isEngineStatusGood( true, false, true );
 
-    std::cout << "Total miles on full tank is " << myPlane.getMilesToEmpty(500, 1.42f) << " miles" << std::endl; 
-    myPlane.printFullTankMiles(); // member function output of above 
+    std::cout << "Total miles on full tank is " << myPlane.pointerToPlane->getMilesToEmpty( 500, 1.42f ) << " miles" << std::endl; 
+    myPlane.pointerToPlane->printFullTankMiles(); // member function output of above 
 
-    std::cout << "Total miles on current tank level " << myPlane.getMilesToEmpty(500, 1.42f, 51.50f) << " miles" << std::endl; 
-    myPlane.printCurrentTankMiles(); // member function output of above 
+    std::cout << "Total miles on current tank level " << myPlane.pointerToPlane->getMilesToEmpty( 500, 1.42f, 51.50f ) << " miles" << std::endl; 
+    myPlane.pointerToPlane->printCurrentTankMiles(); // member function output of above 
 
     // Test two instances of UDT 4
-    Fleet myFleet; 
-    Fleet myOtherFleet;
+    FleetWrapper myFleet( new Fleet() );
+    FleetWrapper myOtherFleet( new Fleet() );
     std::cout << std::endl << "Test Bench UDT 4 - Instance 1:" << std::endl;
-    myFleet.checkOnCar();
-    myFleet.checkOnPlane();
+    myFleet.pointerToFleet->checkOnCar();
+    myFleet.pointerToFleet->checkOnPlane();
     std::cout << std::endl << "Test Bench UDT 4 - Instance 2:" << std::endl;
-    myOtherFleet.checkOnCar();
-    myOtherFleet.checkOnPlane();
+    myOtherFleet.pointerToFleet->checkOnCar();
+    myOtherFleet.pointerToFleet->checkOnPlane();
 
     // Test two instances of UDT 5
-    MegaStudio myMegaStudio; 
-    MegaStudio myOtherMegaStudio;
+    MegaStudioWrapper myMegaStudio( new MegaStudio() );
+    MegaStudioWrapper myOtherMegaStudio( new MegaStudio() );
+
     std::cout << std::endl << "Test Bench UDT 5 - Instance 1:" << std::endl;
-    myMegaStudio.checkOnRoomA();
-    myMegaStudio.checkOnRoomB();
+    myMegaStudio.pointerToMegaStudio->checkOnRoomA();
+    myMegaStudio.pointerToMegaStudio->checkOnRoomB();
     std::cout << std::endl << "Test Bench UDT 5 - Instance 2:" << std::endl;
-    myOtherMegaStudio.checkOnRoomA();
-    myOtherMegaStudio.checkOnRoomB();
+    myOtherMegaStudio.pointerToMegaStudio->checkOnRoomA();
+    myOtherMegaStudio.pointerToMegaStudio->checkOnRoomB();
 }
