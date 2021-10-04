@@ -1,3 +1,11 @@
+#pragma once
+
+struct Car;
+struct Studio;
+struct Plane;
+struct Fleet;
+struct MegaStudio;
+
 struct CarWrapper
 {
     CarWrapper( Car* ptr );
