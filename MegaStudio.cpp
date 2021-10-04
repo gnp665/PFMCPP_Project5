@@ -23,14 +23,3 @@ void MegaStudio::checkOnRoomB()
 {
     roomB.checkEachMic(roomB.numMics);
 }
-
-struct MegaStudioWrapper
-{
-    MegaStudioWrapper( MegaStudio* ptr ) : pointerToMegaStudio( ptr ) { }
-    ~MegaStudioWrapper()
-    {
-        delete pointerToMegaStudio;
-    }
-
-    MegaStudio* pointerToMegaStudio = nullptr;
-};

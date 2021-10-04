@@ -8,11 +8,11 @@ Studio::Studio() : numMics(8), numClients (10)
 
 void Studio::checkEachMic(int numMics_)
 {
-    int i = 1;
-    while(i <= numMics_)
+    int i = 0;
+    while(i < numMics_)
     {
-        std::cout << "Mic number " << i << ": Signal has been checked" << std::endl;
-        i++;
+        i += 1;
+        std::cout << "Mic number " << i << ": Signal has been checked" << std::endl; 
     }
 }
 
