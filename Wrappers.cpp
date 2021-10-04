@@ -19,6 +19,14 @@ StudioWrapper::~StudioWrapper()
 
 //----------------------------
 
+PlaneWrapper::PlaneWrapper( Plane* ptr ) : pointerToPlane( ptr ) { }
+PlaneWrapper::~PlaneWrapper()
+{
+    delete pointerToPlane;
+}
+
+//----------------------------
+
 FleetWrapper::FleetWrapper( Fleet* ptr ) : pointerToFleet( ptr ) { }
 FleetWrapper::~FleetWrapper()
 {

@@ -23,11 +23,8 @@ struct StudioWrapper
 
 struct PlaneWrapper
 {
-    PlaneWrapper( Plane* ptr ) : pointerToPlane( ptr ) { }
-    ~PlaneWrapper()
-    {
-        delete pointerToPlane;
-    }
+    PlaneWrapper( Plane* ptr );
+    ~PlaneWrapper();
 
     Plane* pointerToPlane = nullptr;
 };
