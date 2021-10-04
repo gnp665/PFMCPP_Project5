@@ -1,3 +1,8 @@
+#include "Car.h"
+#include "Studio.h"
+#include "Plane.h"
+#include "Fleet.h"
+#include "MegaStudio.h"
 #include "Wrappers.h"
 
 //----------------------------
@@ -40,4 +45,3 @@ MegaStudioWrapper::~MegaStudioWrapper()
 {
     delete pointerToMegaStudio;
 }
-
